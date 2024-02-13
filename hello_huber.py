@@ -9,15 +9,6 @@ openai.api_key = st.secrets.openai_key
 st.title("TLDHubeR---Search and Summarize the Huberman Lab")
 st.info("Hint: Are you a Hube noob? If so, try searching for sleep!")
 
-# Button to clear cache
-if st.button("Clear the cache!"):
-    st.cache_resource.clear()
-    st.cache_data.clear()
-    st.write("Cleared the Cache")
-
-# if st.button("Hello DATA 515"):
-#     st.write("What's up guys?")
-
 if "messages" not in st.session_state.keys(): # Initialize the chat messages history
     st.session_state.messages = [
         {"role": "assistant", "content": "Ask me a question about Andrew Huberman's Recent Podcast with David Goggins"}
@@ -58,8 +49,3 @@ if st.session_state.messages[-1]["role"] != "assistant":
 def clear_session_state():
     for key in st.session_state.keys():
         st.session_state[key] = None
-
-#st.video("https://www.youtube.com/watch?v=nDLb8_wgX50&t=1848s")
-
-# Display session state
-# st.write("Session State:", st.session_state)
