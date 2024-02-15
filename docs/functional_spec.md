@@ -6,6 +6,10 @@ Our project aims to solve this problem by deploying a GPT-powered webapp that wi
 
 ## User Stories and Use Cases
 
+### General User Profile
+
+In general, we expect our users to be individuals who value simple, intuitive interfaces and who are interacting with our app to satisfy curiosity or save time. We expect them all to be familiar with services such as Google and YouTube, and able to use similar interfaces without having to learn them. In short, we expect them to be casual, non-technical users who are using the app in a personal, and not professional context.
+
 ### User 1:
 
 Alice is a longtime fan of the Huberman Lab. She remembers a certain topic being discussed on the podcast, but doesn't remember what was said or where excactly the topic was discussed. Alice wants to find out in which episodes her topic of interest was discussed, and when. Alice is accustomed to using search engines like Google, and values a simple interface. Unfortunately, Google search results are just not specific enough for her needs.
