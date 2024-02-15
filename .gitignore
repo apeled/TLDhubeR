@@ -6,6 +6,12 @@ __pycache__/
 # C extensions
 *.so
 
+# Do not commit project data
+/data
+
+# Do not commit project secrets
+/.streamlit/secrets.toml
+
 # Distribution / packaging
 .Python
 build/
