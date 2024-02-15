@@ -48,3 +48,18 @@ Streamlit is our web framework of choice and the means by which we will deploy o
 Below is a sequence diagram showing a sample usage of our application. We note that the data ingestion component of our system is omitted in this diagram. This is because we plan to pre-ingest the data and include the ingested data directly in our application. 
 
 ![seq](sequence_diagram.png "Sequence Diagram for Sample Usage")
+
+## User Stories and Use Cases
+
+### User Story 1 (Alice):
+- Streamlit provides a webpage for Alice to input a query and submit it for processing.
+- LlamaIndex's Query Engine processes Alice's keyword input, retrieves relevant context, and sends an enhanced prompt to the OpenAI API.
+- OpenAI API generates responses based on the enhanced prompt, providing Alice with a list of Huberman Lab podcasts containing the keywords. Timestamps of discussions are displayed.
+- Streamlit handles Alice's input through the UI, displays search results, and allows her to interact further (e.g., clicking for more results, watch the video).
+
+### User Story 2 (Bob):
+- Similar to Alice, Streamlit provides a webpage for Bob to input a query and submit it for processing.
+- Bob's input is processed by LlamaIndex (here the IndexRouter will potentially send his query to a different set of indexed data optimized for summaries vs keywords) and sent to the OpenAI API for summarization.
+- OpenAI API generates a summary of the podcast based on Bob's input.
+- Streamlit presents Bob with a concise summary of the podcast, allows for interaction to elaborate on the summary, and displays cited sources and guest names.
+
