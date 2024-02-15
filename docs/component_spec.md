@@ -49,8 +49,6 @@ Below is a sequence diagram showing a sample usage of our application. We note t
 
 ![seq](sequence_diagram.png "Sequence Diagram for Sample Usage")
 
-## Use cases
-
 ## User Stories and Use Cases
 
 ### User Story 1 (Alice):
