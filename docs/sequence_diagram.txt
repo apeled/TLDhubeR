@@ -5,9 +5,9 @@ participant Streamlit App
 
 User -> Streamlit App: User provides input (search query)
 Streamlit App -> LlamaIndex: The app passes the input to the LlamaIndex chat engine
-LlamaIndex -> Data: LlamaIndex searches the data, which is stored locally, for relevant context
-Data -> LlamaIndex: Chunks of the data are returned as context
+LlamaIndex -> Vector Store: LlamaIndex searches the data, which is stored locally, for relevant context
+Vector Store -> LlamaIndex: Chunks of the data are returned as context
 LlamaIndex -> OpenAI API: The query with the added context is fed to a GPT model
-OpenAI API -> LlamaIndex: The response comes back
-LlamaIndex -> Streamlit App: The response is passed to the app for parsing and display
+OpenAI API -> Streamlit App: The response comes back and is parsed within the app
+Streamlit App -> User: The search results are displayed to the user
 

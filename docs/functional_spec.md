@@ -4,6 +4,10 @@ A typical episode of the Huberman Lab podcast ranges from 1 to 4 hours in durati
 
 Our project aims to solve this problem by deploying a GPT-powered webapp that will allow users to search and summarize the Huberman Lab podcast. In doing so, we hope to aid listener recall, and allow users who are interested in the informational content of the Huberman Lab a more efficient way to get the big picture.
 
+# Data Source
+
+The data source we are leveraging for this project is a dataset of podcast transcripts and metadata that we have compiled ourselves from the RSS feed of the Huberman Lab and by using the YouTube Transcript API. We have stored the podcasts in JSON and have chunked the transcript based on the podcast sections provided in the feed.
+
 ## User Stories and Use Cases
 
 ### General User Profile
