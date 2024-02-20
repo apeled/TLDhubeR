@@ -124,4 +124,6 @@ if __name__ == "__main__":
     documents = parse_into_documents(podcast_jsons)
     query_engine = get_simple_hube_engine(documents)
     response = query_engine.query("motivation")
-    print(extract_metadata(response))
+    node_metadata = extract_metadata(response)
+    youtube_links = [n["youtube_link"] for n in node_metadata]
+    print(youtube_links)
