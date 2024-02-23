@@ -38,9 +38,8 @@ We encourage users to use our application as a complementary tool alongside dire
 
 ### Disclaimer
 
-<p style="font-size:10px">
 The information provided by our application is for general informational purposes only. All information in the application is provided in good faith, however, we make no representation or warranty of any kind, express or implied, regarding the accuracy, adequacy, validity, reliability, availability, or completeness of any information.
-<p style="font-size:10px">
+
 Users should not rely solely on the application's content for making decisions without consulting primary, more accurate, more complete, or more timely sources of information. Any reliance on the material in this application is at your own risk.
-<p style="font-size:10px">
+
 This application does not claim to represent the views or opinions of Dr. Andrew Huberman or the Huberman Lab. It is an independent project aimed at providing summarized content for educational and informational purposes only.
