@@ -1,4 +1,4 @@
-name: practice
+name: ci_example
 channels:
   - defaults
 dependencies:
