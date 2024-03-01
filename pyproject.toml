@@ -16,7 +16,7 @@ authors = [
   { name="Ed" },
   { name="Mark" },
 {name = 'AMIT'},
-{name = 'Jake')
+{name = 'Jake'}
 ]
 description = "An Andrew Huberman Search Engine"
 readme = "README.md"
