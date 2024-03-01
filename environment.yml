@@ -6,3 +6,5 @@ dependencies:
   - pip=23
   - python=3
   - jupyter=1
+  - pip:
+      -pip install -r requirements.txt
