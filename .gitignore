@@ -6,8 +6,11 @@ __pycache__/
 # C extensions
 *.so
 
-# Do not commit project data
+# Do not commit data
 /data
+/scraped_data
+/transcript_data
+/pickled_nodes
 
 # Do not commit project secrets
 /.streamlit/secrets.toml
