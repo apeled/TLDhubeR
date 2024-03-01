@@ -17,6 +17,7 @@ on:
     # from Coveralls with your coverage.
     branches:
       - main
+      - CI_Practice
 
 # A list of jobs to run as part of the workflow
 jobs:
