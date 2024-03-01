@@ -1,0 +1,8 @@
+name: practice
+channels:
+  - defaults
+dependencies:
+  - numpy=1
+  - pip=23
+  - python=3
+  - jupyter=1
