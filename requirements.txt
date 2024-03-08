@@ -4,3 +4,4 @@ google-auth-httplib2==0.2.0
 google-auth-oauthlib==1.2.0
 pandas==1.5.3
 youtube-transcript-api==0.6.2
+pytest==8.0.2
