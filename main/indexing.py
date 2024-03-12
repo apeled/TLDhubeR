@@ -148,9 +148,11 @@ def get_simple_hube_engine(documents):
     return simple_hube_engine
 
 
-def dump_object(obj, filename="x.pkl"):
+# Serialization helpers
+def dump_object(obj, filename="x.pkl", base_path="./"):
     """Writes nodes to disk using pickle to save progress."""
-    with open(filename, "wb") as file:
+    path = base_path + "/" + filename
+    with open(path, "wb") as file:
         pkl.dump(obj, file)
 
 
@@ -174,6 +176,14 @@ def unpickle_nodes(base_path):
 
 def process_documents(
     documents: list[Document],
+    pipeline=IngestionPipeline(
+        transformations=[
+            SentenceSplitter(chunk_size=1024),
+            KeywordExtractor(keywords=5),
+            OpenAIEmbedding(model="text-embedding-3-small"),
+        ]
+    ),
+    dump_object_func=dump_object,
     start_index: int = 0,
     batch_size: int = 15,
 ) -> int:
@@ -194,31 +204,25 @@ def process_documents(
     Returns:
         int: Returns 0 to indicate successful completion.
     """
-    my_transformations = [
-        SentenceSplitter(chunk_size=1024),
-        KeywordExtractor(keywords=5),
-        OpenAIEmbedding(model="text-embedding-3-small"),
-    ]
-    pipeline = IngestionPipeline(transformations=my_transformations)
+    # my_transformations = [
+    #     SentenceSplitter(chunk_size=1024),
+    #     KeywordExtractor(keywords=5),
+    #     OpenAIEmbedding(model="text-embedding-3-small"),
+    # ]
+    # pipeline = IngestionPipeline(transformations=my_transformations)
     for i in range(start_index, len(documents), batch_size):
         if i + batch_size < len(documents):
             batch = documents[i : i + batch_size]
             nodes = pipeline.run(documents=batch)
-            dump_object(nodes, filename=f"nodes_{i}.pkl")
+            dump_object_func(nodes, filename=f"nodes_{i}.pkl")
+            print("Waiting 60 seconds to avoid exceeding OpenAI rate limits")
+            time.sleep(60)
         else:
             # Last batch
             batch = documents[i:]
             nodes = pipeline.run(documents=batch)
-            dump_object(nodes, filename="nodes_final.pkl")
-        # Wait to avoid exceeding OpenAI rate limits
-        time.sleep(60)
+            dump_object_func(nodes, filename="nodes_final.pkl")
     return 0
-
-
-def get_mid_video_link(link, start_t):
-    """Modifies a YouTube link to start at the specified time (seconds)."""
-    base_url = link.replace("www.youtube.com/watch?v=", "youtu.be/")
-    return base_url + "?t=" + str(start_t)
 
 
 def extract_metadata(response):
@@ -234,7 +238,7 @@ def extract_metadata(response):
 def main():
     """
     Sample usage of indexing functions. Loads the ouput of merge_rss_and_transcripts
-    and creates and saves a VectorStoreIndex with extracted metadata using LlamaIndex. 
+    and creates and saves a VectorStoreIndex with extracted metadata using LlamaIndex.
     See indexing notebook for more details.
     """
     # Using GPT-3.5 for keyword extraction because it is cheaper
@@ -242,7 +246,7 @@ def main():
     Settings.embed_model = OpenAIEmbedding(model="text-embedding-3-small")
 
     # Parse the output of merge_rss_and_transcripts into Document objects
-    jsons = load_json_transcripts("/home/edouas/DATA-515/TLDhubeR/transcript_data")
+    jsons = load_json_transcripts("./transcript_data")
     docs = parse_into_documents(jsons)
 
     # Process the documents into lists of nodes and serialize.
@@ -250,7 +254,7 @@ def main():
     process_documents(docs, batch_size=10)
 
     # Load the nodes into a single list and save for later
-    nodes_full = unpickle_nodes("/home/edouas/DATA-515/TLDhubeR/pickled_nodes/")
+    nodes_full = unpickle_nodes("./pickled_nodes/")
     dump_object(nodes_full, "nodes_full.pkl")
 
     # Make sure the correct metadata was exposed to the LLM and the embedding model
