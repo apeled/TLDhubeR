@@ -242,7 +242,7 @@ def main():
     Settings.embed_model = OpenAIEmbedding(model="text-embedding-3-small")
 
     # Parse the output of merge_rss_and_transcripts into Document objects
-    jsons = load_json_transcripts("/home/edouas/DATA-515/TLDhubeR/transcript_data")
+    jsons = load_json_transcripts("./transcript_data")
     docs = parse_into_documents(jsons)
 
     # Process the documents into lists of nodes and serialize.
@@ -250,7 +250,7 @@ def main():
     process_documents(docs, batch_size=10)
 
     # Load the nodes into a single list and save for later
-    nodes_full = unpickle_nodes("/home/edouas/DATA-515/TLDhubeR/pickled_nodes/")
+    nodes_full = unpickle_nodes("./pickled_nodes/")
     dump_object(nodes_full, "nodes_full.pkl")
 
     # Make sure the correct metadata was exposed to the LLM and the embedding model
