@@ -148,18 +148,18 @@ def get_simple_hube_engine(documents):
     return simple_hube_engine
 
 
-def dump_object(obj, filename="x.pkl"):
+# Serialization helpers
+def dump_object(obj, filename="x.pkl", base_path="./"):
     """Writes nodes to disk using pickle to save progress."""
-    with open(filename, "wb") as file:
+    path = base_path + "/" + filename
+    with open(path, "wb") as file:
         pkl.dump(obj, file)
-
 
 def load_object(filename):
     """Loads saved nodes from disk."""
     with open(filename, "rb") as file:
         obj = pkl.load(file)
         return obj
-
 
 def unpickle_nodes(base_path):
     """Loads all checkpoints into a single list of nodes."""
@@ -174,6 +174,14 @@ def unpickle_nodes(base_path):
 
 def process_documents(
     documents: list[Document],
+    pipeline = IngestionPipeline(
+        transformations=[
+            SentenceSplitter(chunk_size=1024),
+            KeywordExtractor(keywords=5),
+            OpenAIEmbedding(model="text-embedding-3-small"),
+        ]
+    ),
+    dump_object=dump_object,
     start_index: int = 0,
     batch_size: int = 15,
 ) -> int:
@@ -194,32 +202,32 @@ def process_documents(
     Returns:
         int: Returns 0 to indicate successful completion.
     """
-    my_transformations = [
-        SentenceSplitter(chunk_size=1024),
-        KeywordExtractor(keywords=5),
-        OpenAIEmbedding(model="text-embedding-3-small"),
-    ]
-    pipeline = IngestionPipeline(transformations=my_transformations)
+    # my_transformations = [
+    #     SentenceSplitter(chunk_size=1024),
+    #     KeywordExtractor(keywords=5),
+    #     OpenAIEmbedding(model="text-embedding-3-small"),
+    # ]
+    # pipeline = IngestionPipeline(transformations=my_transformations)
     for i in range(start_index, len(documents), batch_size):
         if i + batch_size < len(documents):
             batch = documents[i : i + batch_size]
             nodes = pipeline.run(documents=batch)
             dump_object(nodes, filename=f"nodes_{i}.pkl")
+            print("Waiting 60 seconds to avoid exceeding OpenAI rate limits")
+            time.sleep(60)
         else:
             # Last batch
             batch = documents[i:]
             nodes = pipeline.run(documents=batch)
-            dump_object(nodes, filename="nodes_final.pkl")
-        # Wait to avoid exceeding OpenAI rate limits
-        time.sleep(60)
+            dump_object(nodes, filename="nodes_final.pkl")  
     return 0
 
 
+# Metadata extraction helpers for testing
 def get_mid_video_link(link, start_t):
     """Modifies a YouTube link to start at the specified time (seconds)."""
     base_url = link.replace("www.youtube.com/watch?v=", "youtu.be/")
     return base_url + "?t=" + str(start_t)
-
 
 def extract_metadata(response):
     """Extracts and transforms metadata from source nodes in a query response."""
