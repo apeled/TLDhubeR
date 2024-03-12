@@ -95,7 +95,7 @@ class TestTranscriptsScraper(unittest.TestCase):
         file_path = "test_output.json"
         save_video_information_to_json(video_information, file_path)
 
-        with open(file_path, 'r') as file:
+        with open(file_path, 'r', encoding='utf-8') as file:
             content = json.load(file)  # Deserialize JSON content to a Python object
             self.assertEqual(content['Video URL'], 'http://example.com')
             self.assertEqual(content['Video Title'], 'Title 1')

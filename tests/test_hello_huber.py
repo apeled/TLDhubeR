@@ -1,6 +1,6 @@
 from unittest.mock import patch
 import pytest
-from hello_huber import get_mid_video_link, load_data
+from main.hello_huber import get_mid_video_link, load_data
 
 def test_get_mid_video_link():
     # Test case for a valid YouTube link and start time
