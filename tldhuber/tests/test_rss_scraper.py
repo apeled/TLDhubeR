@@ -9,7 +9,7 @@ included in the scrape.
 import unittest
 import pandas as pd
 
-from main.rss_scraper import scrape_rss_data
+from tldhuber.utils.rss_scraper import scrape_rss_data
 
 class TestRSSDataScraper(unittest.TestCase):
     """

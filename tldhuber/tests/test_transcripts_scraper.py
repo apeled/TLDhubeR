@@ -13,7 +13,7 @@ import os
 import json
 import pandas as pd
 
-from main.transcripts_scraper import (get_channel_upload_playlist_id_by_username,
+from tldhuber.utils.transcripts_scraper import (get_channel_upload_playlist_id_by_username,
                                       get_channel_upload_playlist_id_by_channelid,
                                       get_playlist_items, save_video_information_to_json)
 
