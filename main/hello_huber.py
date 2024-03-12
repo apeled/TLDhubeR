@@ -28,7 +28,7 @@ st.set_page_config(
 )
 
 # Markdown file path
-MARKDOWN_FILE_PATH = '../docs/tldhuber_side_page.md'
+MARKDOWN_FILE_PATH = 'docs/tldhuber_side_page.md'
 
 def read_markdown_file(path):
     """
@@ -79,7 +79,7 @@ def load_data():
         Settings.llm = OpenAI(temperature=0.2, model="gpt-3.5-turbo-0125")
         Settings.embed_model = OpenAIEmbedding(model="text-embedding-3-small")
 
-        storage_context_load = StorageContext.from_defaults(persist_dir="../data")
+        storage_context_load = StorageContext.from_defaults(persist_dir="data")
         loaded_index = load_index_from_storage(storage_context_load)
 
         return loaded_index
@@ -157,11 +157,11 @@ try:
             timestamps = [episode['timestamp'] for episode in meta_data]
 
         for i, message in enumerate(st.session_state["messages"]):
-            with st.chat_message(message["role"], avatar="../docs/andrew.jpeg" if i == 0 else None):
+            with st.chat_message(message["role"], avatar="docs/andrew.jpeg" if i == 0 else None):
                 st.write(message["content"])
 
         if st.session_state["messages"][-1]["role"] != "assistant":
-            with st.chat_message("assistant", avatar="../docs/andrew.jpeg"):
+            with st.chat_message("assistant", avatar="docs/andrew.jpeg"):
                 with st.spinner("Thinking..."):
                     response = st.session_state["chat_engine"].chat(prompt)
                     st.write(response.response)
