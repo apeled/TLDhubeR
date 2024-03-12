@@ -1,9 +1,12 @@
 """
-Unit tests for the indexing module.
+Unit tests for the indexing module. Performs smoke testing of data loading and 
+writing, a one-shot semantic search test, and a test of the processing pipeline
+using mocking. The index generation code was only intended to be run once, but
+writing these tests was still good practice.
 """
 
 import unittest
-from unittest.mock import Mock, patch
+from unittest.mock import Mock
 
 from main import indexing
 
@@ -18,7 +21,6 @@ class TestIndexingFuctions(unittest.TestCase):
     Unit tests for the indexing module. Uses test_data for load validation
     and mocks components with API responses for output validation.
     """
-
     # Define globals for use in multiple tests
     test_jsons = indexing.load_json_transcripts("./tests/test_data")
     test_docs = indexing.parse_into_documents(test_jsons)
@@ -76,10 +78,8 @@ class TestIndexingFuctions(unittest.TestCase):
         indexing.process_documents(
             test_docs, pipeline=mock_pipeline, dump_object=mock_dump_object
         )
-
         # Assert expectations on the mock
         mock_pipeline.run.assert_called_once_with(documents=test_docs)
-
         # Assert that the correct nodes were written
         written_nodes = indexing.unpickle_nodes("./tests/test_data/test_output")
         self.assertEqual(written_nodes, expected_nodes)
