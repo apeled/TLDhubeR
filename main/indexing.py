@@ -6,7 +6,7 @@ This file creates and stores an VectorStoreIndex for usage in our streamlit
 application. This process was interactive, but has been converted to a script
 for testing. It serves as a record of what was done.
 
-Notebook contents:
+File contents:
 1. Load JSON transcripts.
 2. Parse transcript sections into Documents and attaches metadata.
 3. Extract keywords and embeds nodes using the OpenAI API.
@@ -14,7 +14,7 @@ Notebook contents:
 5. Test reloading the index.
 6. Create and test a simple retrieval engine using embeddings.
 
-Modules: os, json, time, nest_asyncio, pickle, llama_index libraries.
+Modules: os, json, time, nest_asyncio, pickle, llama_index.
 
 Author: Edouard Seryozhenkov
 Date: 2024-02-29
