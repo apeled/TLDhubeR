@@ -1,40 +1,44 @@
-# In order to build your package, you need to use a "build system".
-# There are a number of supported build systems, but here we'll use
-# the "setuptools" package.
 [build-system]
 requires = ["setuptools>=61.0"]
 build-backend = "setuptools.build_meta"
 
-# The "project" section contains metadata about the project, like
-# the authors and version. Note that the `dynamic` setting here
-# is very important so that the build system packages up your
-# dependencies!
+[tool.setuptools]
+package-dir = {"" = "tldhuber"}
+
 [project]
-name = "TLDhubeR"
+name = "tldhuber"
 version = "0.0.1"
 authors = [
-  { name="Ed" },
-  { name="Mark" },
-{name = 'AMIT'},
-{name = 'Jake'}
+  { name = "Ed Seryozhenkov", email = "edouas@uw.edu" },
+  { name = "Mark" },
+  { name = 'Amit' },
+  { name = 'Jake' },
 ]
-description = "An Andrew Huberman Search Engine"
+description = "An Andrew Huberman Chat Engine"
 readme = "README.md"
-requires-python = ">=3"
+requires-python = ">=3.9, <4.0"
 classifiers = [
-    "Programming Language :: Python :: 3",
-    "License :: OSI Approved :: MIT License",
-    "Operating System :: OS Independent",
+  "Programming Language :: Python :: 3",
+  "License :: OSI Approved :: MIT License",
+  "Operating System :: OS Independent",
 ]
-dynamic = ["dependencies"]
+dependencies = [
+  "python >=3.9, <4.0",
+  "jupyter",
+  "ipykernel",
+  "pandas",
+  "feedparser==6",
+  "google-api-python-client==2.118.0",
+  "google-auth-httplib2==0.2.0",
+  "google-auth-oauthlib==1.2.0",
+  "llama-index==0.10.13",
+  "nest-asyncio==1.6",
+  "openai==1.12.0",
+  "pytest==8",
+  "streamlit==1.31",
+  "youtube-transcript-api==0.6",
+]
 
-# In conjunction with the "dynamic" option above in the "project"
-# section, this tells the build system to add any dependencies
-# specified in requirements.txt.
-[tool.setuptools.dynamic]
-dependencies = {file = ["requirements.txt"]}
-
-# Where can someone find out more about your project?
 [project.urls]
 Homepage = "https://github.com/apeled/TLDhubeR/tree/main"
 Issues = "https://github.com/apeled/TLDhubeR/issues"
