@@ -23,13 +23,7 @@ Authors: Mark Daniel, Amit Peled
 Date: 2024-02-20
 """
 
-import os
-import json
 import requests
-import pandas as pd
-from youtube_transcript_api import YouTubeTranscriptApi
-from youtube_transcript_api._errors import VideoUnavailable, NoTranscriptAvailable
-
 
 def get_channel_upload_playlist_id_by_username(yt_data_api_key, username):
     """
@@ -103,5 +97,3 @@ def save_video_information_to_json(video_information, file_path):
     - file_path: The path where the JSON file will be saved.
     """
     video_information.to_json(file_path, orient='records', lines=True)
-
-
