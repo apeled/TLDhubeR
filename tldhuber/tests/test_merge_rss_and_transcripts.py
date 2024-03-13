@@ -1,3 +1,4 @@
+# pylint: disable=C0103
 """
 This module contains unit tests for the merge_rss_and_transcripts function. It tests
 various scenarios including successful data merging, handling empty YouTube playlists,
@@ -7,7 +8,7 @@ and verifying the function's output.
 """
 
 import unittest
-from unittest.mock import patch, mock_open, MagicMock
+from unittest.mock import patch, mock_open
 
 import pandas as pd
 
@@ -32,7 +33,7 @@ class TestMergeRSSAndTranscripts(unittest.TestCase):
         ]
 
     @patch("tldhuber.utils.merge_rss_and_transcripts.get_playlist_items")
-    @patch("tldhuber.utils.merge_rss_and_transcripts.get_channel_upload_playlist_id_by_channelid", 
+    @patch("tldhuber.utils.merge_rss_and_transcripts.get_channel_upload_playlist_id_by_channelid",
            return_value="some_playlist_id")
     @patch("tldhuber.utils.merge_rss_and_transcripts.scrape_rss_data")
     def test_merge_success(self, mock_scrape_rss_data, _, mock_get_playlist_items):
@@ -52,8 +53,10 @@ class TestMergeRSSAndTranscripts(unittest.TestCase):
             "tldhuber.utils.merge_rss_and_transcripts.scrape_rss_data"
             )
     @patch("tldhuber.utils.merge_rss_and_transcripts.get_playlist_items")
-    @patch("tldhuber.utils.merge_rss_and_transcripts.get_channel_upload_playlist_id_by_channelid", return_value="some_playlist_id")
-    def test_more_rss_entries_than_youtube_videos(self, _, mock_get_playlist_items, mock_scrape_rss_data):
+    @patch("tldhuber.utils.merge_rss_and_transcripts.get_channel_upload_playlist_id_by_channelid",
+           return_value="some_playlist_id")
+    def test_more_rss_entries_than_youtube_videos(self, _,
+                                                   mock_get_playlist_items, mock_scrape_rss_data):
         """Test processing when there are more RSS
         entries than YouTube videos."""
         mock_rss_data_extended = pd.DataFrame({
@@ -70,11 +73,14 @@ class TestMergeRSSAndTranscripts(unittest.TestCase):
             merge_rss_and_transcripts("fake_api_key", "fake_channel_id", "fake_rss_feed_url")
 
             self.assertEqual(mock_file_open.call_count, len(self.mock_playlist_items))
-
-    @patch('tldhuber.utils.merge_rss_and_transcripts.get_channel_upload_playlist_id_by_channelid', return_value="some_playlist_id")
+    #pylint : disable=C0301
+    @patch('tldhuber.utils.merge_rss_and_transcripts.get_channel_upload_playlist_id_by_channelid',
+           return_value="some_playlist_id")
     @patch('tldhuber.utils.merge_rss_and_transcripts.get_playlist_items')
     @patch('tldhuber.utils.merge_rss_and_transcripts.scrape_rss_data')
-    def test_more_youtube_videos_than_rss_entries(self, mock_scrape_rss_data, mock_get_playlist_items, _):
+    #pylint : disable=C0301
+    def test_more_youtube_videos_than_rss_entries(self,
+                                                   mock_scrape_rss_data,mock_get_playlist_items, _):
         """Test processing when there are more YouTube video entries than RSS feed entries."""
         mock_rss_data = pd.DataFrame({
             'Title': ['Episode 1'],
