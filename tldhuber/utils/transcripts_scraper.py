@@ -104,32 +104,4 @@ def save_video_information_to_json(video_information, file_path):
     """
     video_information.to_json(file_path, orient='records', lines=True)
 
-if __name__ == "__main__":
-    API_KEY = "AIzaSyCZkMX4lpsmBLzaVQRBbkVXc8jUHt8mE18"  ########MARK FOR REMOVAL#######
-    CHANNEL_ID="UC2D2CMWXMOVWx7giW1n3LIg"
-    upload_playlist_id = get_channel_upload_playlist_id_by_channelid(API_KEY, CHANNEL_ID)
-    playlist_items = get_playlist_items(API_KEY, upload_playlist_id)
-    dfs = []
-    for item in playlist_items:
-        video_id = item["contentDetails"]["videoId"]
-        video_title = item["snippet"]["title"]
-        video_url = f"https://www.youtube.com/watch?v={video_id}"
-        try:
-            TRANSCRIPT = json.dumps(YouTubeTranscriptApi.get_transcript(video_id))
-        except VideoUnavailable:
-            print(f"Video unavailable: {video_id}")
-            TRANSCRIPT = "N/A"
-        except NoTranscriptAvailable:
-            print(f"No transcript available for video {video_id}")
-            TRANSCRIPT = "N/A"
-        df_video = pd.DataFrame({
-            'Video Title': [video_title], 
-            'Video URL': [video_url], 
-            'Transcript': [TRANSCRIPT]
-        })
-        dfs.append(df_video)
-    df_combined = pd.concat(dfs, ignore_index=True)
-    desktop_path = os.path.join(os.path.expanduser('~'), 'Desktop')
-    json_file_path = os.path.join(desktop_path, "youtube_videos.json")
-    save_video_information_to_json(df_combined, json_file_path)
-    print(f"\nVideo information has been saved to '{json_file_path}'.")
+
