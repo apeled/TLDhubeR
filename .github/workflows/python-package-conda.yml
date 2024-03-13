@@ -89,7 +89,7 @@ jobs:
       - name: Lint with pylint
         run: |
           pylint tldhuber/hello_huber.py
-          pylint tldhuber/utils/*.py
+          pylint tldhuber/**/*.py
 
       # Next step: run the unit tests with code coverage.
       - name: Unit tests
