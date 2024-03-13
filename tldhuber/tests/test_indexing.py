@@ -8,7 +8,7 @@ writing these tests was still good practice.
 import unittest
 from unittest.mock import Mock
 
-from main import indexing
+from tldhuber.utils import indexing
 
 
 def is_list_of_dicts(data):
@@ -21,16 +21,15 @@ class TestIndexingFuctions(unittest.TestCase):
     Unit tests for the indexing module. Uses test_data for load validation
     and mocks components with API responses for output validation.
     """
-    # Define globals for use in multiple tests
-    test_jsons = indexing.load_json_transcripts("./tests/test_data")
-    test_docs = indexing.parse_into_documents(test_jsons)
-
-    def test_smoke_transcript_load(self, test_jsons=test_jsons):
+    def test_smoke_transcript_load(self):
         """Test that transcripts are loaded into a list of json objects (dicts)"""
+        test_jsons = indexing.load_json_transcripts("./tldhuber/tests/test_data")
         self.assertTrue(is_list_of_dicts(test_jsons))
 
-    def test_document_creation(self, test_docs=test_docs):
+    def test_document_creation(self):
         """Test to make sure documents are created with the proper metadata"""
+        test_jsons = indexing.load_json_transcripts("./tldhuber/tests/test_data")
+        test_docs = indexing.parse_into_documents(test_jsons)
         expected_metadata_keys = set(
             [
                 "episode_title",
@@ -43,13 +42,15 @@ class TestIndexingFuctions(unittest.TestCase):
         for doc in test_docs:
             self.assertEqual(expected_metadata_keys, set(doc.metadata))
 
-    def test_simple_search(self, test_docs=test_docs):
+    def test_simple_search(self):
         """
         Test to ensure semantic vector searching is able to find
         an obvious match. This is essentially a one-shot test that our llama-index
         objects are created with the correct arguments and that the embedding
         model of the query engine matches the embeddings of the text nodes.
         """
+        test_jsons = indexing.load_json_transcripts("./tldhuber/tests/test_data")
+        test_docs = indexing.parse_into_documents(test_jsons)
         expected_text = (
             "Conclusion: indexing.py seems to work. Now go take a break, scientist!"
         )
@@ -58,21 +59,23 @@ class TestIndexingFuctions(unittest.TestCase):
         top_match_text = retrieved_nodes[0].text
         self.assertEqual(top_match_text, expected_text)
 
-    def test_process_documents(self, test_docs=test_docs):
+    def test_process_documents(self):
         """
         This function tests to make sure that the read and write functionality
         of process_documents is working, that there are no indexing errors, etc.
         """
-        expected_nodes = indexing.unpickle_nodes("./tests/test_data")
+        test_jsons = indexing.load_json_transcripts("./tldhuber/tests/test_data")
+        test_docs = indexing.parse_into_documents(test_jsons)
+        expected_nodes = indexing.unpickle_nodes("./tldhuber/tests/test_data")
         # Mock IngestionPipeline to load test_nodes
         mock_pipeline = Mock(indexing.IngestionPipeline)
         mock_pipeline.run.return_value = expected_nodes
         # Mock dump_object (test writing the mocked nodes to file)
         mock_dump_object = Mock(indexing.dump_object)
-        mock_dump_object.side_effect = indexing.dump_object(
+        mock_dump_object.return_value = indexing.dump_object(
             expected_nodes,
             filename="test_output.pkl",
-            base_path="./tests/test_data/test_output",
+            base_path="./tldhuber/tests/test_data/test_output",
         )
         # Use the mocks in a test. Takes 60 seconds to run
         indexing.process_documents(
@@ -81,7 +84,7 @@ class TestIndexingFuctions(unittest.TestCase):
         # Assert expectations on the mock
         mock_pipeline.run.assert_called_once_with(documents=test_docs)
         # Assert that the correct nodes were written
-        written_nodes = indexing.unpickle_nodes("./tests/test_data/test_output")
+        written_nodes = indexing.unpickle_nodes("./tldhuber/tests/test_data/test_output")
         self.assertEqual(written_nodes, expected_nodes)
 
 
