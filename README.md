@@ -1,5 +1,6 @@
-# TLDHubeR---A Search Tool for the Andrew Huberman Podcast 
-
+# TLDHubeR---A Search Tool for the Andrew Huberman Podcast
+[![build_test](https://github.com/apeled/TLDhubeR/actions/workflows/python-package-conda.yml/badge.svg)](https://github.com/apeled/TLDhubeR/actions/workflows/python-package-conda.yml)
+[![Coverage Status](https://coveralls.io/repos/github/apeled/TLDhubeR/badge.svg?branch=main)](https://coveralls.io/github/apeled/TLDhubeR?branch=main)
 
 ## Project Overview
 
