@@ -4,6 +4,7 @@ youtube videos correctly and that we are properly handling api responses.
 """
 
 from unittest.mock import patch
+
 from tldhuber.hello_huber import get_mid_video_link, load_data
 
 
