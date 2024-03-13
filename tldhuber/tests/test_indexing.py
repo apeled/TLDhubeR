@@ -80,7 +80,7 @@ class TestIndexingFuctions(unittest.TestCase):
         # Use the mocks in a test. Takes 60 seconds to run
         # pylint: disable=E1123
         indexing.process_documents(
-            test_docs, pipeline=mock_pipeline, dump_object=mock_dump_object
+            test_docs, pipeline=mock_pipeline, dump_object_func=mock_dump_object
         )
         # Assert expectations on the mock
         mock_pipeline.run.assert_called_once_with(documents=test_docs)
