@@ -122,5 +122,33 @@ class TestHelloHuber(unittest.TestCase):
         self.assertIn('youtu.be/example', link_no_change,
                       "Link should be modified correctly even for timestamp 0.")
 
+    def test_extract_metadata_with_missing_fields(self):
+        """Test extract_metadata when some metadata fields are missing."""
+        query_response = MagicMock()
+        query_response.source_nodes = [
+            MagicMock(metadata={'youtube_link':
+                                'https://www.youtube.com/watch?v=missingTimestamp'}),
+            MagicMock(metadata={'timestamp': 60})  # Missing youtube_link
+        ]
+        with self.assertRaises(KeyError, msg="Should raise KeyError for missing metadata fields"):
+            extract_metadata(query_response)
+
+    def test_handling_empty_and_duplicate_youtube_links(self):
+        """
+        Test application's behavior when processing empty and duplicate YouTube links.
+        """
+        query_response = MagicMock()
+        query_response.source_nodes = [
+            MagicMock(metadata={'youtube_link': '', 'timestamp': 30}),
+            MagicMock(metadata={'youtube_link': 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+                                'timestamp': 60}),
+            MagicMock(metadata={'youtube_link': 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+                                'timestamp': 60})
+        ]
+        metadata = extract_metadata(query_response)
+        unique_links = {data['youtube_link'] for data in metadata}
+        self.assertTrue('' not in unique_links, "Empty links should be ignored.")
+        self.assertEqual(len(unique_links), 2, "Duplicate links should be filtered out.")
+
 if __name__ == '__main__':
     unittest.main()
