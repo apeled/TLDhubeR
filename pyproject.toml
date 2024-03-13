@@ -23,7 +23,7 @@ classifiers = [
   "Operating System :: OS Independent",
 ]
 dependencies = [
-  "python >=3.9, <4.0",
+  "python >=3.9, <3.11",
   "jupyter",
   "ipykernel",
   "pandas",
