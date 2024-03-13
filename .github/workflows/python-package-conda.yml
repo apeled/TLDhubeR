@@ -1,0 +1,134 @@
+# You can have multiple workflows that are triggered by different
+# events (eg a workflow that runs on branch pushes, versus a
+# workflow that runs when a GitHub issue is created). Give your
+# workflow a descriptive name so that you know what it is.
+name: build_test
+
+# What is the event that triggers this workflow? Options include
+# push, pull_request, create, issues, etc. This configuration says
+# that you should run on pushes to the main branch (ie after a PR
+# is merged), or when a pull request is created to merge into main.
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    # Configuring this means that your PRs will get a GitHub comment
+    # from Coveralls with your coverage.
+    branches:
+      - main
+      - CI_Practice
+
+# A list of jobs to run as part of the workflow
+jobs:
+
+  # Each job gets a name. This one builds/tests all branches.
+  build_test:
+
+    # Provide a runner. Options are listed on GitHub, but include
+    # windows, ubuntu, and macos (latest, as well as specific versions)
+    runs-on: ubuntu-latest
+
+    # In order to get Conda environments to work properly, we need to
+    # tell the runner to start up the bash shell in a way that respects
+    # the changes Conda makes to bash profile files.
+    # More at:
+    # https://github.com/marketplace/actions/setup-miniconda#use-a-default-shell
+    defaults:
+      run:
+        shell: bash -el {0}
+
+    # We specify all versions of Python that we want to validate.
+    # GitHub will run the tests for each of these Python versions.
+    strategy:
+      matrix:
+        python-version: ["3.9", "3.10"]
+
+    # The actual workflow steps!
+    steps:
+      # First, check out the repository for the current branch.
+      - uses: actions/checkout@v3
+
+      # Then set up Python with a python version from the matrix.
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      # This is an Action published by the Conda team to get your
+      # Conda environment set up using your environment.yml file.
+      # More at https://github.com/marketplace/actions/setup-miniconda
+      - name: Set up conda
+        uses: conda-incubator/setup-miniconda@v2
+        with:
+          # Use the environment name from your environment.yml file
+          activate-environment: tldhuber
+          # The name of the environment file you want conda to use
+          environment-file: environment.yml
+          # Whether you want conda to automatically update the conda
+          # version (helpful when some runners have old versions of
+          # conda)
+          auto-update-conda: true
+          # Which version of python you want conda to use
+          python-version: ${{ matrix.python-version }}
+          # We don't need the base environment, so don't activate it
+          auto-activate-base: false
+
+      # You don't normally need test coverage information when
+      # developing locally - we just want it in CI - so we install
+      # it here instead of in our environment file (which we also
+      # use locally).
+      - name: Install additional development dependencies
+        run: |
+          conda install --yes coverage
+      
+      # If there are any other steps in order for your tests to
+      # run successfully, you can add those steps here!
+
+      # Next step: run pylint. Anything less than 10/10 will fail.
+      - name: Lint with pylint
+        run: |
+          pylint tldhuber/hello_huber.py
+          pylint tldhuber/**/*.py
+
+      # Next step: run the unit tests with code coverage.
+      - name: Unit tests
+        run: |
+          export OPENAI_API_KEY='FAKE KEY'
+          coverage run -m unittest discover
+          coverage report
+          coverage lcov
+
+      # Lastly: report code coverage to Coveralls.
+      - name: Report code coverage to Coveralls
+        uses: coverallsapp/github-action@master
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          base-path: tldhuber
+          path-to-lcov: coverage.lcov
+          # The following two options are needed for "parallel"
+          # runs - ie if you have a matrix of python versions.
+          # This holds off on reporting code coverage to
+          # coveralls until all runs are done. If you don't have
+          # a matrix, this isn't needed.
+          flag-name: run ${{ join(matrix.*, ' - ') }}
+          parallel: true
+
+  # After all the parallel matrix runs for build_test are done
+  # for the various python versions, we run this job to send the
+  # final code coverage to Coveralls.
+  finish:
+    # This job requires that build_test be finished before it
+    # can run.
+    needs: build_test
+    if: ${{ always() }}
+    runs-on: ubuntu-latest
+    steps:
+    - name: Coveralls Finished
+      uses: coverallsapp/github-action@master
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        parallel-finished: true
+        # This says finish the parallel runs that we did above
+        # and send to Coveralls.
+        carryforward: "run-3.7,run-3.8,run-3.9,run-3.10"
