@@ -3,11 +3,11 @@
 
 ## Project Overview
 
-TLDHubeR is a web application that allows users to search for and summarize content in the Andrew Huberman podcast.
+TLDHubeR is a web application that allows users to search for and summarize content in the Huberman Lab Podcast using a chat interface. Essentially it is retrieval augmented generation app with extra quality of life features powered by `llama-index` and `streamlit`. 
 
 ### Project Type
 
-This project is a search and summary ***tool*** written in Python. This project also includes a dataset generation phase, which we are working through using cloud services.
+This project is a search and summary ***tool*** written in Python. 
 
 ### Questions of Interest
 

@@ -19,9 +19,10 @@ Date: 2024-02-28
 
 import os
 import json
-from rss_scraper import scrape_rss_data
-from transcripts_scraper import get_channel_upload_playlist_id_by_channelid,\
-    get_playlist_items
+from tldhuber.utils.rss_scraper import scrape_rss_data
+from tldhuber.utils.transcripts_scraper import get_channel_upload_playlist_id_by_channelid, \
+      get_playlist_items
+
 
 #Number of local variables is necessary for testing and implementation purposes
 # pylint: disable=R0914
