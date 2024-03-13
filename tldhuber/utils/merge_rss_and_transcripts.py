@@ -70,7 +70,7 @@ def merge_rss_and_transcripts(api_key, channel_id, rss_feed_url):
         print(f"Merged entry saved to {output_filename}")
 
 def main():
-    api_key = "AIzaSyCZkMX4lpsmBLzaVQRBbkVXc8jUHt8mE18"  ########MARK FOR REMOVAL#######
+    api_key = ""
     channel_id="UC2D2CMWXMOVWx7giW1n3LIg"
     rss_feed_url = "https://feeds.megaphone.fm/hubermanlab"
     merge_rss_and_transcripts(api_key, channel_id, rss_feed_url)
