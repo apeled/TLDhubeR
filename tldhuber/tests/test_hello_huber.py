@@ -65,7 +65,7 @@ class TestHelloHuber(unittest.TestCase):
         expected_link = "https://youtu.be/dQw4w9WgXcQ?t=60"
         modified_link = get_mid_video_link(original_link, 60)
         self.assertEqual(modified_link, expected_link)
-
+ 
     @patch('tldhuber.hello_huber.set_up_engine')
     def test_extract_metadata(self, mock_set_up_engine):
         """
