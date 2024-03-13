@@ -11,7 +11,7 @@ from unittest.mock import patch, mock_open
 
 import pandas as pd
 
-from tldhuber.utils import merge_rss_and_transcripts
+from tldhuber.utils.merge_rss_and_transcripts import merge_rss_and_transcripts
 
 
 class TestMergeRSSAndTranscripts(unittest.TestCase):
