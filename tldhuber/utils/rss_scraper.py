@@ -9,7 +9,7 @@ the feed and manage the data, respectively.
 Author: Jake Flynn
 Date: 2024-02-20
 """
-
+#pylint: disable=E0401
 import feedparser
 import pandas as pd
 
@@ -46,12 +46,3 @@ def scrape_rss_data(feed_url):
 
     print(f"Error parsing feed: {feed.bozo_exception}")
     return None
-
-if __name__ == "__main__":
-    # Example usage
-    RSS_FEED_URL = "https://feeds.megaphone.fm/hubermanlab"
-    df = scrape_rss_data(RSS_FEED_URL)
-    print(df.head())
-
-    # Save to Excel (consider moving this to a separate script or function)
-    # df.to_excel('rss.xlsx')
