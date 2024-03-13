@@ -1,7 +1,7 @@
 # TLDHubeR---A Search Tool for the Andrew Huberman Podcast 
 
 
-## Project Overview
+## Project Overview 
 
 TLDHubeR is a web application that allows users to search for and summarize content in the Huberman Lab Podcast using a chat interface. Essentially it is retrieval augmented generation app with extra quality of life features powered by `llama-index` and `streamlit`. 
 
