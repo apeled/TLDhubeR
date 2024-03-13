@@ -2,7 +2,7 @@
 
 ![ANDREW Image](static/download.jpeg)
 
-## Project Overview y
+## Project Overview 
 
 TLDHubeR is a web application that allows users to search for and summarize content in the Andrew Huberman podcast.
 
