@@ -100,7 +100,8 @@ class TestMergeRSSAndTranscripts(unittest.TestCase):
     ])
     def test_missing_youtube_data_fields(self, _, __):
         """Test merging when critical YouTube data fields are missing."""
-        with self.assertRaises(KeyError, msg="Should raise KeyError for missing YouTube data fields"):
+        with self.assertRaises(KeyError,
+                               msg="Should raise KeyError for missing YouTube data fields"):
             merge_rss_and_transcripts("fake_api_key", "fake_channel_id", "fake_rss_feed_url")
 
     @patch("tldhuber.utils.merge_rss_and_transcripts.scrape_rss_data",
@@ -114,14 +115,16 @@ class TestMergeRSSAndTranscripts(unittest.TestCase):
            side_effect=Exception("Invalid RSS URL"))
     def test_nonexistent_rss_feed_url(self, _):
         """Test behavior with an invalid or inaccessible RSS feed URL."""
-        with self.assertRaises(Exception, msg="Should raise an exception for invalid RSS feed URLs"):
+        with self.assertRaises(Exception,
+                               msg="Should raise an exception for invalid RSS feed URLs"):
             merge_rss_and_transcripts("fake_api_key", "fake_channel_id", "fake_rss_feed_url")
 
     @patch("tldhuber.utils.merge_rss_and_transcripts.get_channel_upload_playlist_id_by_channelid",
            side_effect=Exception("Invalid Channel ID"))
     def test_invalid_youtube_channel_id(self, _):
         """Test behavior with an invalid YouTube channel ID."""
-        with self.assertRaises(Exception, msg="Should raise an exception for invalid YouTube channel IDs"):
+        with self.assertRaises(Exception,
+                               msg="Should raise an exception for invalid YouTube channel IDs"):
             merge_rss_and_transcripts("fake_api_key", "fake_channel_id", "fake_rss_feed_url")
 
 if __name__ == "__main__":
