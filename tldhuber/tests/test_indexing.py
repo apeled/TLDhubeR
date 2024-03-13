@@ -8,7 +8,7 @@ writing these tests was still good practice.
 import unittest
 from unittest.mock import Mock
 
-from main import indexing
+from tldhuber.utils import indexing
 
 
 def is_list_of_dicts(data):
@@ -22,7 +22,7 @@ class TestIndexingFuctions(unittest.TestCase):
     and mocks components with API responses for output validation.
     """
     # Define globals for use in multiple tests
-    test_jsons = indexing.load_json_transcripts("./tests/test_data")
+    test_jsons = indexing.load_json_transcripts("./tldhuber/tests/test_data")
     test_docs = indexing.parse_into_documents(test_jsons)
 
     def test_smoke_transcript_load(self, test_jsons=test_jsons):
@@ -63,7 +63,7 @@ class TestIndexingFuctions(unittest.TestCase):
         This function tests to make sure that the read and write functionality
         of process_documents is working, that there are no indexing errors, etc.
         """
-        expected_nodes = indexing.unpickle_nodes("./tests/test_data")
+        expected_nodes = indexing.unpickle_nodes("./tldhuber/tests/test_data")
         # Mock IngestionPipeline to load test_nodes
         mock_pipeline = Mock(indexing.IngestionPipeline)
         mock_pipeline.run.return_value = expected_nodes
@@ -72,7 +72,7 @@ class TestIndexingFuctions(unittest.TestCase):
         mock_dump_object.side_effect = indexing.dump_object(
             expected_nodes,
             filename="test_output.pkl",
-            base_path="./tests/test_data/test_output",
+            base_path="./tldhuber/tests/test_data/test_output",
         )
         # Use the mocks in a test. Takes 60 seconds to run
         indexing.process_documents(
@@ -81,7 +81,7 @@ class TestIndexingFuctions(unittest.TestCase):
         # Assert expectations on the mock
         mock_pipeline.run.assert_called_once_with(documents=test_docs)
         # Assert that the correct nodes were written
-        written_nodes = indexing.unpickle_nodes("./tests/test_data/test_output")
+        written_nodes = indexing.unpickle_nodes("./tldhuber/tests/test_data/test_output")
         self.assertEqual(written_nodes, expected_nodes)
 
 
