@@ -148,10 +148,12 @@ def get_simple_hube_engine(documents):
     return simple_hube_engine
 
 
-def dump_object(obj, filename="x.pkl"):
+def dump_object(obj, base_path="./", filename="x.pkl"):
     """Writes nodes to disk using pickle to save progress."""
-    with open(filename, "wb") as file:
+    path = base_path + "/" + filename
+    with open(path, "wb") as file:
         pkl.dump(obj, file)
+        return 0
 
 
 def load_object(filename):
@@ -174,6 +176,12 @@ def unpickle_nodes(base_path):
 
 def process_documents(
     documents: list[Document],
+    pipeline = IngestionPipeline(transformations=[
+        SentenceSplitter(chunk_size=1024),
+        KeywordExtractor(keywords=5),
+        OpenAIEmbedding(model="text-embedding-3-small"),
+    ]),
+    dump_object = dump_object,
     start_index: int = 0,
     batch_size: int = 15,
 ) -> int:
@@ -194,12 +202,12 @@ def process_documents(
     Returns:
         int: Returns 0 to indicate successful completion.
     """
-    my_transformations = [
-        SentenceSplitter(chunk_size=1024),
-        KeywordExtractor(keywords=5),
-        OpenAIEmbedding(model="text-embedding-3-small"),
-    ]
-    pipeline = IngestionPipeline(transformations=my_transformations)
+    # my_transformations = [
+    #     SentenceSplitter(chunk_size=1024),
+    #     KeywordExtractor(keywords=5),
+    #     OpenAIEmbedding(model="text-embedding-3-small"),
+    # ]
+    # pipeline = IngestionPipeline(transformations=my_transformations)
     for i in range(start_index, len(documents), batch_size):
         if i + batch_size < len(documents):
             batch = documents[i : i + batch_size]
