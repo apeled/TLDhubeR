@@ -104,7 +104,7 @@ jobs:
         uses: coverallsapp/github-action@master
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          base-path: tldhuber
+          base-path: .
           path-to-lcov: coverage.lcov
           # The following two options are needed for "parallel"
           # runs - ie if you have a matrix of python versions.
