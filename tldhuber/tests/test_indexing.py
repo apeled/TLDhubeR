@@ -78,6 +78,7 @@ class TestIndexingFuctions(unittest.TestCase):
             base_path="./tldhuber/tests/test_data/test_output",
         )
         # Use the mocks in a test. Takes 60 seconds to run
+        # pylint: disable=E1123
         indexing.process_documents(
             test_docs, pipeline=mock_pipeline, dump_object=mock_dump_object
         )
