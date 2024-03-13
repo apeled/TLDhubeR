@@ -32,7 +32,7 @@ We also want to guide our users through this process, especially if they are unf
 
 ### Setup Guide
 
-[To set up TLDHubeR and run it locally, click this link and follow our guide! See the tree structure at the bottom of this README for how the installation should look.](examples/README.md)
+[To set up TLDHubeR and run it locally,including our tests, click this link and follow our guide! See the tree structure at the bottom of this README for how the installation should look.](examples/README.md)
 
 [If you want to see TLDHubeR in action, click this link for a short video demo!](https://drive.google.com/file/d/1fiSpdIgGcz334ju89eA-xbq1F2fx2haV/view?usp=sharing)
 

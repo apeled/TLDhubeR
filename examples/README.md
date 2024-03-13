@@ -5,6 +5,7 @@ This folder contains setup information and usage examples for our application. A
   - [3. Loading Data](#3-loading-data)
   - [4. Obtain an OpenAI API Key](#4-obtain-an-openai-api-key)
   - [5. Run the App](#5-run-the-app)
+  - [6. Test the App](#6-test-the-app)
 - [Video Demo](#video-demo)
 
 [](#)
@@ -77,6 +78,19 @@ streamlit run tldhuber/hello_huber.py
 ```
 
 For further usage information and more examples, [check out the rest of the examples](examples/site_navigation.md).
+
+[](#)
+
+### 6\. Test the App
+
+Additionally, if you want to run our unit tests, you will need to input the following commands at the top level of our project,
+as importing `indexing.py` imports utilities from `openai`. This import fails if there is no `OPENAI_API_KEY` 
+environment variable set. Our tests do not actually call the API, however, so we may proceed in absence of a key using a fake key, as seen below.
+
+```shell
+export OPENAI_API_KEY "FAKE KEY"
+python -m unittest discover
+```
 
 [](#)
 
