@@ -15,7 +15,7 @@ Below is team that worked on this application. If you have any questions, feel f
 | Name | Github Handle | 
 |---|---|
 | Edouard Seryozhenkov| edouas  | 
-| Mark Daniel Ralston | MarkUnivWash | 
+| Mark Daniel | MarkUnivWash | 
 | Amit Peled | apeled | 
 | Jake Flynn | jakeflynn56 | 
 
