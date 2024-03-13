@@ -1,7 +1,7 @@
 # TLDHubeR---A Search Tool for the Andrew Huberman Podcast 
 
 
-## Project Overview
+## Project Overview 
 
 TLDHubeR is a web application that allows users to search for and summarize content in the Andrew Huberman podcast.
 
