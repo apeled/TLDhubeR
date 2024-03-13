@@ -72,7 +72,7 @@ class TestIndexingFuctions(unittest.TestCase):
         mock_pipeline.run.return_value = expected_nodes
         # Mock dump_object (test writing the mocked nodes to file)
         mock_dump_object = Mock(indexing.dump_object)
-        mock_dump_object.side_effect = indexing.dump_object(
+        mock_dump_object.return_value = indexing.dump_object(
             expected_nodes,
             filename="test_output.pkl",
             base_path="./tldhuber/tests/test_data/test_output",
