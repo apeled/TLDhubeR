@@ -5,6 +5,7 @@ channels:
 dependencies:
   - python >=3.9, <3.11
   - jupyter
+  - pylint
   - ipykernel
   - pandas
   - pip
@@ -19,3 +20,4 @@ dependencies:
     - pytest==8
     - streamlit==1.31
     - youtube-transcript-api==0.6
+
