@@ -213,13 +213,13 @@ def process_documents(
             batch = documents[i : i + batch_size]
             nodes = pipeline.run(documents=batch)
             dump_object(nodes, filename=f"nodes_{i}.pkl")
+            # Wait to avoid exceeding OpenAI rate limits
+            time.sleep(60)
         else:
             # Last batch
             batch = documents[i:]
             nodes = pipeline.run(documents=batch)
             dump_object(nodes, filename="nodes_final.pkl")
-        # Wait to avoid exceeding OpenAI rate limits
-        time.sleep(60)
     return 0
 
 
