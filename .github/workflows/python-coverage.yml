@@ -1,0 +1,28 @@
+name: Python application with Coverage
+
+on: [push, pull_request]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.8'
+    - name: Install dependencies
+      run: |
+        pip install -r requirements.txt
+    - name: Run tests with coverage
+      run: |
+        coverage run --source=tldhuber -m unittest discover tldhuber/tests
+    - name: Coverage report
+      run: coverage report
+    - name: Coveralls
+      uses: coverallsapp/github-action@master
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        path-to-lcov: '' # Not needed for Python when using the coverallsapp action.
