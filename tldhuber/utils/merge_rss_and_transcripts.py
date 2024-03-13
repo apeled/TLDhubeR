@@ -11,8 +11,8 @@ with its corresponding transcript.
 
 import os
 import json
-from rss_scraper import scrape_rss_data
-from transcripts_scraper import get_channel_upload_playlist_id_by_channelid, get_playlist_items
+from tldhuber.utils.rss_scraper import scrape_rss_data
+from tldhuber.utils.transcripts_scraper import get_channel_upload_playlist_id_by_channelid, get_playlist_items
 
 def merge_rss_and_transcripts(api_key, channel_id, rss_feed_url):
     """
