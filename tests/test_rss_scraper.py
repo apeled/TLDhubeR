@@ -57,6 +57,17 @@ class TestRSSDataScraper(unittest.TestCase):
         episode_exists = df_result["Title"].str.contains(specific_title).any()
         self.assertTrue(episode_exists)
 
+    def test_scrape_rss_data_invalid_feed(self):
+        """
+        Test the behavior of scrape_rss_data when given an invalid RSS feed URL or
+        if the Huberman feed cannot be parsed.
+        
+        This edge test verifies that the function returns None when it cannot parse the feed,
+        simulating situations where the feed URL is incorrect or the feed is down.
+        """
+        invalid_feed_url = "https://example.com/invalid_rss_feed"
+        result = scrape_rss_data(invalid_feed_url)
+        self.assertIsNone(result)
 
 if __name__ == "__main__":
     unittest.main()

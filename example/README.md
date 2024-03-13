@@ -74,4 +74,4 @@ streamlit run tldhuber/hello_huber.py
 
 []()
 
-- See our **[Video Demo](put link here)** to watch tldhuber in action!
+- See our **[Video Demo](https://drive.google.com/file/d/1fiSpdIgGcz334ju89eA-xbq1F2fx2haV/view?usp=sharing)** to watch tldhuber in action!

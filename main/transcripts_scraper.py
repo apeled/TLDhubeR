@@ -2,21 +2,22 @@
 # coding: utf-8
 
 """
-This module provides functionality for extracting transcripts from YouTube videos given a channel's username or ID.
-It fetches the upload playlist ID of a channel, retrieves all videos from this playlist, and attempts to fetch
-the transcript for each video using the YouTube Transcript API. The collected data, including video titles, URLs,
-and transcripts, is then saved as a JSON file.
+This module provides functionality for extracting transcripts from YouTube videos given a channel's
+username or ID. It fetches the upload playlist ID of a channel, retrieves all videos from this
+playlist, and attempts to fetch the transcript for each video using the YouTube Transcript API.
+The collected data, including video titles, URLs, and transcripts, is then saved as a JSON file.
 
-Usage requires a valid YouTube Data API key and either the username or the ID of a YouTube channel. The module
-defines functions for fetching playlist IDs, retrieving playlist items, and saving video information to JSON.
-It's designed to be run as a script, with example usage that fetches and saves video information from a specified channel.
+Usage requires a valid YouTube Data API key and either the username or the ID of a YouTube channel.
+The module defines functions for fetching playlist IDs, retrieving playlist items, and saving video
+information to JSON. It's designed to be run as a script, with example usage that fetches and saves
+video information from a specified channel.
 """
 
-import requests
 import os
+import json
+import requests
 import pandas as pd
 from youtube_transcript_api import YouTubeTranscriptApi
-import json
 
 def get_channel_upload_playlist_id_by_username(api_key, username):
     """
@@ -33,7 +34,7 @@ def get_channel_upload_playlist_id_by_username(api_key, username):
     url = f"{base_url}?part=contentDetails&forUsername={username}&key={api_key}"
     response = requests.get(url)
     data = response.json()
-    return data["items"][0]["contentDetails"]["relatedPlaylists"]["uploads"]
+    return data["items"][0]["contentDetails"]["relatedPlaylists"]["uploads"]if data['items'] else None
 
 def get_channel_upload_playlist_id_by_channelid(api_key, channel_id):
     """
