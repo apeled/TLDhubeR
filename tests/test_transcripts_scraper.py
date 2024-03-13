@@ -82,6 +82,20 @@ class TestTranscriptsScraper(unittest.TestCase):
         result = get_playlist_items(api_key, playlist_id)
         self.assertEqual(result, ["video1", "video2", "video3"])
 
+    @patch('requests.get')
+    def test_get_channel_upload_playlist_id_by_username_no_items(self, mock_get):
+        """
+        Test upload playlist ID using a YouTube channel username when no items are returned.
+        This is an edge case where the given username does not exist or there is an API issue.
+        """
+        mock_get.return_value.json.return_value = {
+            "items": []
+        }
+        api_key = "dummy_api_key"
+        username = "dummy_username"
+        result = get_channel_upload_playlist_id_by_username(api_key, username)
+        self.assertIsNone(result)
+
     def test_save_video_information_to_json(self):
         """
         Test saving video information to a JSON file.
