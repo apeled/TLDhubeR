@@ -181,7 +181,7 @@ def process_documents(
         KeywordExtractor(keywords=5),
         OpenAIEmbedding(model="text-embedding-3-small"),
     ]),
-    dump_object = dump_object,
+    dump_object_func = dump_object,
     start_index: int = 0,
     batch_size: int = 15,
 ) -> int:
@@ -212,14 +212,15 @@ def process_documents(
         if i + batch_size < len(documents):
             batch = documents[i : i + batch_size]
             nodes = pipeline.run(documents=batch)
-            dump_object(nodes, filename=f"nodes_{i}.pkl")
+            dump_object_func(nodes, filename=f"nodes_{i}.pkl")
             # Wait to avoid exceeding OpenAI rate limits
             time.sleep(60)
         else:
             # Last batch
             batch = documents[i:]
             nodes = pipeline.run(documents=batch)
-            dump_object(nodes, filename="nodes_final.pkl")
+            dump_object_func(nodes, filename="nodes_final.pkl")
+
     return 0
 
 
@@ -231,6 +232,7 @@ def get_mid_video_link(link, start_t):
 
 def extract_metadata(response):
     """Extracts and transforms metadata from source nodes in a query response."""
+    # pylint: disable=R0801
     metadata_list = [node.metadata for node in response.source_nodes]
     for metadata in metadata_list:
         base_link = metadata["youtube_link"]
