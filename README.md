@@ -27,3 +27,65 @@ As of now, we plan to use three sources of data in our application:
 - Podcast metadata scraped from Andrew Huberman's RSS feed (done).
 - Podcast transcripts which we are generating using audio transcription models (in progress).
 - Data from Andrew Huberman's YouTube channel (in progress).
+
+### Overall Project Structure
+
+```{bash}
+.
+├── LICENSE
+├── README.md
+├── data
+│   ├── default__vector_store.json
+│   ├── docstore.json
+│   ├── graph_store.json
+│   ├── image__vector_store.json
+│   └── index_store.json
+├── docs
+│   ├── DATA 515 Tech Review.pdf
+│   ├── andrew.jpeg
+│   ├── component_spec.md
+│   ├── functional_spec.md
+│   ├── milestones.md
+│   ├── sequence_diagram.png
+│   ├── sequence_diagram.txt
+│   └── tldhuber_side_page.md
+├── environment.yml
+├── examples
+│   ├── README.md
+│   └── site_navigation.md
+├── notebooks
+│   ├── indexing.ipynb
+│   ├── mergeRSSandTranscripts.ipynb
+│   ├── rss_scraper.ipynb
+│   └── scrapeTranscripts.ipynb
+├── pyproject.toml
+├── scraped_data
+│   ├── RAW_UU2D2CMWXMOVWx7giW1n3LIg_youtube_videos.json
+│   └── rss.csv
+└── tldhuber
+    ├── __init__.py
+    ├── hello_huber.py
+    ├── static
+    │   ├── api_key.png
+    │   ├── chat_example.png
+    │   ├── chat_interface.png
+    │   ├── download.jpeg
+    │   └── load_index.png
+    ├── tests
+    │   ├── __init__.py
+    │   ├── test_data
+    │   │   ├── test.json
+    │   │   ├── test_nodes.pkl
+    │   │   └── test_output
+    │   │       └── test_output.pkl
+    │   ├── test_hello_huber.py
+    │   ├── test_indexing.py
+    │   ├── test_rss_scraper.py
+    │   └── test_transcripts_scraper.py
+    |
+    └── utils
+        ├── indexing.py
+        ├── merge_rss_and_transcripts.py
+        ├── rss_scraper.py
+        └── transcripts_scraper.py
+```
