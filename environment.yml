@@ -5,6 +5,7 @@ channels:
 dependencies:
   - python >=3.9, <4.0
   - jupyter
+  - pylint
   - ipykernel
   - pandas
   - pip
