@@ -32,29 +32,36 @@ class TestMergeRSSAndTranscripts(unittest.TestCase):
         ]
 
     @patch("tldhuber.utils.merge_rss_and_transcripts.get_playlist_items")
-    @patch("tldhuber.utils.merge_rss_and_transcripts.get_channel_upload_playlist_id_by_channelid", return_value="some_playlist_id")
+    @patch("tldhuber.utils.merge_rss_and_transcripts.get_channel_upload_playlist_id_by_channelid", 
+           return_value="some_playlist_id")
     @patch("tldhuber.utils.merge_rss_and_transcripts.scrape_rss_data")
     def test_merge_success(self, mock_scrape_rss_data, _, mock_get_playlist_items):
         """Test successful merging of RSS and YouTube data."""
         mock_scrape_rss_data.return_value = self.mock_rss_data
         mock_get_playlist_items.return_value = self.mock_playlist_items
 
-        with patch("builtins.open", new_callable=mock_open) as mocked_open, patch("json.dump") as mocked_json_dump:
+        with patch("builtins.open", new_callable=mock_open) as mocked_open, \
+            patch("json.dump") as mocked_json_dump:
+
             merge_rss_and_transcripts("fake_api_key", "fake_channel_id", "fake_rss_feed_url")
 
             self.assertEqual(mocked_open.call_count, len(self.mock_playlist_items))
             mocked_json_dump.assert_called()
 
-    @patch("tldhuber.utils.merge_rss_and_transcripts.scrape_rss_data")
+    @patch(
+            "tldhuber.utils.merge_rss_and_transcripts.scrape_rss_data"
+            )
     @patch("tldhuber.utils.merge_rss_and_transcripts.get_playlist_items")
     @patch("tldhuber.utils.merge_rss_and_transcripts.get_channel_upload_playlist_id_by_channelid", return_value="some_playlist_id")
     def test_more_rss_entries_than_youtube_videos(self, _, mock_get_playlist_items, mock_scrape_rss_data):
-        """Test processing when there are more RSS entries than YouTube videos."""
+        """Test processing when there are more RSS
+        entries than YouTube videos."""
         mock_rss_data_extended = pd.DataFrame({
             'Title': ['Episode 1', 'Episode 2', 'Episode 3'],
             'Publication Date': ['2023-01-01', '2023-01-02', '2023-01-03'],
             'Summary': ['Summary 1', 'Summary 2', 'Summary 3'],
-            'Enclosure Link': ['http://example.com/1', 'http://example.com/2', 'http://example.com/3']
+            'Enclosure Link': ['http://example.com/1',
+                 'http://example.com/2', 'http://example.com/3']
         })
         mock_scrape_rss_data.return_value = mock_rss_data_extended
         mock_get_playlist_items.return_value = self.mock_playlist_items
