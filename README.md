@@ -2,33 +2,47 @@
 
 ## Project Overview
 
-TLDHubeR is a web application that allows users to search for and summarize content in the Huberman Lab Podcast using a chat interface. Essentially it is retrieval augmented generation app with extra quality of life features powered by `llama-index` and `streamlit`. 
+Andrew Huberman is a double threat---a neuroscientist by day and a podcast host by night. He's a professor at Stanford University digging into the hows and whys of our brains, and his Huberman Lab Podcast is wildly popular, reaching #1 on health and fitness on major platforms.
 
-### Project Type
+Our application, TLDHubeR,  allows users to search for and summarize content in the Huberman Lab Podcast using a chat interface, all from the comfort of their browser. Ask a question, any question, and the app will search the Huberman Lab for relevant information and then use that information to generate a response, including relevant youtube links. Whether you're new to the podcast or a longtime fan, we hope TLDHubeR will help you parse the many hours of the Huberman Lab for learning and pleasure!
 
-This project is a search and summary ***tool*** written in Python. 
+### Team 
 
-### Questions of Interest
+Below is team that worked on this application. If you have any questions, feel free to reach out to us on github!
 
-We want our users to be able to input a search string or search term, and receive in turn:
-- A podcast that is the "closest match" in content to the search terms
-- Timestamps of when those terms are discussed in the match
-- An embedded YouTube video that allows users to start listening right when those discussions begin
-- A short summary of the contents of the search results, including the relevant transcript, with any sources the podcast may have cited
+| Name | Github Handle | 
+|---|---|
+| Edouard Seryozhenkov| edouas  | 
+| Mark Daniel Ralston | MarkUnivWash | 
+| Amit Peled | apeled | 
+| Jake Flynn | jakeflynn56 | 
 
-### Goal for the Project Output
 
-The primary output of this project will be a web application with an LLM (gpt-4-turbo) hiding in the backend, configured to act as a search engine with retrieval augmented generation (RAG). A necessary preliminary goal on the way to this is to compile a high quality and up to date dataset for the Andrew Huberman podcast, including episode transcripts, which we plan to share online.
+### Project Goals
 
-In accomplishing these two goals we hope to enable users to filter the podcast based on their interests, to quickly find content they have heard before, and to get their hands on the data if they'd like.
+This project is a search and summary ***tool*** written in Python. Our team aimed to create an application that would be convenient, educational, and fun for a general audience. In order to accomplish this goal, we implemented functionality so that our users to be able to input a question or search term, and receive in turn:
 
-### Data Sources
-As of now, we plan to use three sources of data in our application:
-- Podcast metadata scraped from Andrew Huberman's RSS feed (done).
-- Podcast transcripts which we are generating using audio transcription models (in progress).
-- Data from Andrew Huberman's YouTube channel (in progress).
+- A search response that summarizes relevant content from the Huberman Lab and quotes the podcast.
+- An embedded YouTube video that allows users to start listening to the podcast right when relevant discussions begin.
+  - Additional relevant links with timestamps, for follow up exploration.
 
-### Overall Project Structure
+We also want to guide our users through this process, especially if they are unfamiliar with the Huberman Lab. We include side page for this reason, and also gently prompt users who would rather not take the time to peruse it.
+
+### Setup Guide
+
+[To set up TLDHubeR and run it locally, click this link and follow our guide! See the tree structure at the bottom of this README for how the installation should look.](examples/README.md)
+
+[If you want to see TLDHubeR in action, click this link for a short video demo!](https://drive.google.com/file/d/1fiSpdIgGcz334ju89eA-xbq1F2fx2haV/view?usp=sharing)
+
+## Data Sources & Additional Info
+
+Our application uses data from two sources to generate the database that we use in our app. These include:
+- The RSS feed of the Huberman Lab (metadata).
+- Andrew Huberman's YouTube channel (video links, id's, and podcast transcripts).
+
+These data sources were scraped and the output was then joined into a single podcasts dataset. Until we configure hosting, we are termporarily storing this data [here](https://drive.google.com/drive/folders/1-DpJ9uRG-6wK9yiYZPyIj181-QSbK0_l?usp=sharing).
+
+### Overall Project Structure After Setup
 
 ```{bash}
 .
