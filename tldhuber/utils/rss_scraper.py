@@ -9,7 +9,7 @@ the feed and manage the data, respectively.
 Author: Jake Flynn
 Date: 2024-02-20
 """
-
+#pylint: disable=E0401
 import feedparser
 import pandas as pd
 
@@ -46,5 +46,3 @@ def scrape_rss_data(feed_url):
 
     print(f"Error parsing feed: {feed.bozo_exception}")
     return None
-
-
