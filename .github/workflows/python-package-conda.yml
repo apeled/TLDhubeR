@@ -94,6 +94,7 @@ jobs:
       # Next step: run the unit tests with code coverage.
       - name: Unit tests
         run: |
+          export OPENAI_API_KEY='FAKE KEY'
           coverage run -m unittest discover
           coverage report
           coverage lcov
