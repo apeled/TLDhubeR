@@ -1,4 +1,4 @@
-# TLDHubeR---A Search Tool for the Andrew Huberman Podcast 
+# TLDHubeR---A Search Tool for the Andrew Huberman Podcast  
 
 
 ## Project Overview
