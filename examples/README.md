@@ -77,7 +77,7 @@ Once you have obtained the data and an OpenAI API key, the following command wil
 streamlit run tldhuber/hello_huber.py
 ```
 
-For further usage information and more examples, [check out the rest of the examples](examples/site_navigation.md).
+For further usage information and more examples, [check out the rest of the examples](site_navigation.md).
 
 [](#)
 
