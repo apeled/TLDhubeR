@@ -44,6 +44,8 @@ Our application uses data from two sources to generate the database that we use 
 
 These data sources were scraped and the output was then joined into a single podcasts dataset. Until we configure hosting, we are termporarily storing this data [here](https://drive.google.com/drive/folders/1-DpJ9uRG-6wK9yiYZPyIj181-QSbK0_l?usp=sharing).
 
+To see the slides we used in our presentation, click [here](docs/Presentation.pdf).
+
 ### Overall Project Structure After Setup
 
 ```{bash}
